@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "619934948223",
+    "project_id": "chatapp-cfd43",
+    "storage_bucket": "chatapp-cfd43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619934948223:android:ce1bc58b0f748690c7984a",
+        "android_client_info": {
+          "package_name": "com.quang.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619934948223-9q1roku539aeb175v8hhn460daeiaf3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqpTAkgQTzO1YmJUQCiXmfJW_Cih3s1lM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619934948223-9q1roku539aeb175v8hhn460daeiaf3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
