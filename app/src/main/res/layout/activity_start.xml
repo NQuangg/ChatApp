@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:gravity="center"
     tools:context=".StartActivity">
 
@@ -12,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ChatApp"
+        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         />
@@ -20,7 +22,9 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryVariant"
         android:text="login"
+        android:textColor="@color/white"
         android:layout_marginTop="100dp"
         />
 
@@ -28,7 +32,10 @@
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryVariant"
         android:text="register"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
         />
 
 </LinearLayout>
