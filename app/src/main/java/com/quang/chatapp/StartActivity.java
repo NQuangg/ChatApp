@@ -19,15 +19,6 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-//      check if user is null
-        if (firebaseUser != null) {
-            Intent intent = new Intent(StartActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
 
@@ -46,5 +37,19 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+//      check if user is null
+        if (firebaseUser != null) {
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
