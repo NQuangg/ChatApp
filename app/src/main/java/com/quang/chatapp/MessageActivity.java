@@ -100,7 +100,7 @@ public class MessageActivity extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if (user.getImageURL().equals("default")) {
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
+                    profile_image.setImageResource(R.drawable.ic_profile);
                 } else {
                     Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_image);
                 }

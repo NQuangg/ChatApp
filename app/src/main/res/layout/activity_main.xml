@@ -21,7 +21,8 @@
                 android:id="@+id/profile_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                tools:src="@mipmap/ic_launcher" />
+                android:src="@drawable/ic_profile"
+                />
 
             <TextView
                 android:id="@+id/username"
