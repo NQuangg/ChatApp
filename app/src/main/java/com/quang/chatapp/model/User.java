@@ -12,4 +12,5 @@ public class User {
     private String username;
     private String imageURL;
     private String status;
+    private String search;
 }
