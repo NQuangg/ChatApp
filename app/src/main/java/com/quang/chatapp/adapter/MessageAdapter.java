@@ -27,14 +27,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private Context mContext;
     private List<Chat> mChats;
-    private String imageURL;
+    private String imageUrl;
 
     private FirebaseUser firebaseUser;
 
-    public MessageAdapter(Context mContext, List<Chat> mChats, String imageURL) {
+    public MessageAdapter(Context mContext, List<Chat> mChats, String imageUrl) {
         this.mContext = mContext;
         this.mChats = mChats;
-        this.imageURL = imageURL;
+        this.imageUrl = imageUrl;
     }
 
     @NonNull
@@ -54,10 +54,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Chat chat = mChats.get(position);
         holder.show_message.setText(chat.getMessage());
 
-        if (imageURL.equals("default")) {
+        if (imageUrl.equals("default")) {
             holder.profile_image.setImageResource(R.drawable.ic_profile);
         } else {
-            Glide.with(mContext).load(imageURL).into(holder.profile_image);
+            Glide.with(mContext).load(imageUrl).into(holder.profile_image);
+        }
+
+        if (position == mChats.size()-1) {
+            if (chat.getIsSeen()) {
+                holder.txt_seen.setText("Seen");
+            } else {
+                holder.txt_seen.setText("Deliveried");
+            }
+        } else {
+            holder.txt_seen.setVisibility(View.GONE);
         }
     }
 
@@ -69,12 +79,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
         public TextView show_message;
         public ImageView profile_image;
+        public TextView txt_seen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             show_message = itemView.findViewById(R.id.show_message);
             profile_image = itemView.findViewById(R.id.profile_image);
+            txt_seen = itemView.findViewById(R.id.txt_seen);
         }
     }
 
