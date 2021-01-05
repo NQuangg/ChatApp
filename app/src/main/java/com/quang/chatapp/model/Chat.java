@@ -11,15 +11,5 @@ public class Chat {
     private String sender;
     private String receiver;
     private String message;
-    private boolean isSeen;
-    private boolean ko;
-
-    public boolean getIsSeen() {
-        return isSeen;
-    }
-
-    public void setIsSeen(boolean seen) {
-        isSeen = seen;
-    }
-
+    private boolean seen;
 }

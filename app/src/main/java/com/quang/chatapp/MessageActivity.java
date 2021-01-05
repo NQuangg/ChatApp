@@ -128,7 +128,7 @@ public class MessageActivity extends AppCompatActivity {
                     Chat chat = snapShot.getValue(Chat.class);
                     if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId)) {
                         HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("isSeen", true);
+                        hashMap.put("seen", true);
                         snapShot.getRef().updateChildren(hashMap);
                     }
                 }
@@ -149,7 +149,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
-        hashMap.put("isSeen", false);
+        hashMap.put("seen", false);
 
         reference.child("Chats").push().setValue(hashMap);
     }
