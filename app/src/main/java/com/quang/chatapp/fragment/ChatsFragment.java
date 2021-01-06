@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.quang.chatapp.R;
 import com.quang.chatapp.adapter.UserAdapter;
 import com.quang.chatapp.model.Chat;
+import com.quang.chatapp.model.ChatList;
 import com.quang.chatapp.model.User;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class ChatsFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private DatabaseReference reference;
 
-    private List<String> usersList;
+    private List<ChatList> usersList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,25 +51,18 @@ public class ChatsFragment extends Fragment {
 
         usersList = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference = FirebaseDatabase.getInstance().getReference("ChatLists").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersList.clear();
 
                 for (DataSnapshot snapShot: dataSnapshot.getChildren()) {
-                    Chat chat = snapShot.getValue(Chat.class);
-
-                    if (chat.getSender().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getReceiver());
-                    }
-
-                    if (chat.getReceiver().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getSender());
-                    }
-
-                    readChats();
+                    ChatList chatList = snapShot.getValue(ChatList.class);
+                    usersList.add(chatList);
                 }
+
+                readChatList();
             }
 
             @Override
@@ -80,7 +74,7 @@ public class ChatsFragment extends Fragment {
         return view;
     }
 
-    private void readChats() {
+    private void readChatList() {
         mUsers = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -91,18 +85,9 @@ public class ChatsFragment extends Fragment {
                 for (DataSnapshot snapShot: dataSnapshot.getChildren()) {
                     User user = snapShot.getValue(User.class);
 
-                    // Display 1 user from chats
-                    for (String id: usersList) {
-                        if (user.getId().equals(id)) {
-                            if (mUsers.size() != 0) {
-                                for (User user1: mUsers) {
-                                    if (!user.getId().equals(user1.getId())) {
-                                        mUsers.add(user);
-                                    }
-                                }
-                            } else {
-                                mUsers.add(user);
-                            }
+                    for (ChatList chatList: usersList) {
+                        if (user.getId().equals(chatList.getId())) {
+                            mUsers.add(user);
                         }
                     }
                 }

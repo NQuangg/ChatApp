@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
-        <activity android:name=".MessageActivity"></activity>
+
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +29,10 @@
             android:name=".RegisterActivity"
             android:parentActivityName=".StartActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".ForgetPasswordActivity"
+            android:parentActivityName=".LoginActivity"/>
+
     </application>
 
 </manifest>

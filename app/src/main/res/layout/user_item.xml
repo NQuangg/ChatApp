@@ -52,4 +52,17 @@
         app:civ_border_color="#BFBFBF"
         />
 
+    <TextView
+        android:id="@+id/last_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_alignStart="@+id/username"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimaryVariant"
+        android:textSize="8sp"
+        tools:text="last message" />
+
 </RelativeLayout>

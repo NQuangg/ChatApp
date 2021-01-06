@@ -46,6 +46,7 @@ public class MessageActivity extends AppCompatActivity {
     private DatabaseReference reference;
 
     private Intent intent;
+    private String userId;
 
     private ValueEventListener seenListener;
 
@@ -78,7 +79,7 @@ public class MessageActivity extends AppCompatActivity {
         text_send = findViewById(R.id.text_send);
 
         intent = getIntent();
-        String userId = intent.getStringExtra("userId");
+        userId = intent.getStringExtra("userId");
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,8 +99,8 @@ public class MessageActivity extends AppCompatActivity {
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if (user.getImageURL().equals("default")) {
                     profile_image.setImageResource(R.drawable.ic_profile);
@@ -152,6 +153,44 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("seen", false);
 
         reference.child("Chats").push().setValue(hashMap);
+
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatLists")
+                .child(firebaseUser.getUid())
+                .child(userId);
+
+        chatRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    chatRef.child("id").setValue(userId);
+
+                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("ChatLists")
+                            .child(userId)
+                            .child(firebaseUser.getUid());
+
+                    userRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (!dataSnapshot.exists()) {
+                                userRef.child("id").setValue(firebaseUser.getUid());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void readMessage(String myId, String userId, String imageUrl) {
