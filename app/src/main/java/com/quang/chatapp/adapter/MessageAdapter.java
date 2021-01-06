@@ -76,6 +76,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return mChats.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mChats.get(position).getSender().equals(firebaseUser.getUid())) {
+            return MESSAGE_TYPE_RIGHT;
+        } else {
+            return MESSAGE_TYPE_LEFT;
+        }
+    }
+
+
     class ViewHolder extends RecyclerView.ViewHolder {
         public TextView show_message;
         public ImageView profile_image;
@@ -90,13 +101,4 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (mChats.get(position).getSender().equals(firebaseUser.getUid())) {
-            return MESSAGE_TYPE_RIGHT;
-        } else {
-            return MESSAGE_TYPE_LEFT;
-        }
-    }
 }
