@@ -34,6 +34,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private boolean isChat;
 
     private String theLastMessage;
+    private int color;
 
     public UserAdapter(Context mContext, List<User> mUsers, boolean isChat) {
         this.mContext = mContext;
@@ -112,6 +113,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private void findLastMessage(String userId, TextView last_message) {
         theLastMessage = "";
+        color = mContext.getColor(R.color.colorPrimaryVariant);
+
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
 
@@ -124,6 +127,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userId) ||
                             chat.getReceiver().equals(userId) && chat.getSender().equals(firebaseUser.getUid())) {
                         theLastMessage = chat.getMessage();
+
+                        if (chat.getSender().equals(firebaseUser.getUid())) {
+                            color = mContext.getColor(R.color.gray);
+                        } else {
+                            if (chat.isSeen()) {
+                                color = mContext.getColor(R.color.gray);
+                            } else {
+                                color = mContext.getColor(R.color.colorPrimaryVariant);
+                            }
+                        }
                     }
                 }
 
@@ -134,10 +147,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
                     default:
                         last_message.setText(theLastMessage);
+                        last_message.setTextColor(color);
                         break;
                 }
-
-                theLastMessage = "";
             }
 
             @Override
