@@ -128,6 +128,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                             chat.getReceiver().equals(userId) && chat.getSender().equals(firebaseUser.getUid())) {
                         theLastMessage = chat.getMessage();
 
+                        // colorPrimaryVariant when chat hasn't been seen by receiver yet
                         if (chat.getSender().equals(firebaseUser.getUid())) {
                             color = mContext.getColor(R.color.gray);
                         } else {
